@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Detail Admin - Form Wizard</title>
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+    <!-- bootstrap -->
+    <link href="/static/css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="/static/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="/static/css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+    <!-- libraries -->
+    <link href="/static/css/lib/bootstrap-wysihtml5.css" type="text/css" rel="stylesheet" />
+    <link href="/static/css/lib/uniform.default.css" type="text/css" rel="stylesheet" />
+    <link href="/static/css/lib/select2.css" type="text/css" rel="stylesheet" />
+    <link href="/static/css/lib/bootstrap.datepicker.css" type="text/css" rel="stylesheet" />
+    <link href="/static/css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="/static/css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/elements.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/icons.css" />
+    
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="/static/css/compiled/form-wizard.css" type="text/css" media="screen" />
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>
+    <!-- navbar -->
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <a class="brand" href="index.html"><img src="/static/img/logo.png" /></a>
+
+            <ul class="nav pull-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle hidden-phone" data-toggle="dropdown">
+                        ADMIN(管理员)
+                        <b class="caret"></b>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end navbar -->
+
+    <!-- sidebar -->
+    <div id="sidebar-nav">
+        <ul id="dashboard-menu">
+            <li class="active">
+                <div class="pointer">
+                    <div class="arrow"></div>
+                    <div class="arrow_border"></div>
+                </div>
+                <a href="index.html">
+                    <i class="icon-home"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="chart-showcase.html">
+                    <i class="icon-signal"></i>
+                    <span>流量图表</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-group"></i>
+                    <span>用户</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="user-list.html">授权用户列表</a></li>
+                    <li><a href="new-user.html">新加用户</a></li>
+                    <!-- <li><a href="user-profile.html">用户信息</a></li> -->
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-th-large"></i>
+                    <span>端口</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="tables.html">端口列表</a></li>
+                    <li><a href="form-wizard.html">添加端口</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+    <!-- end sidebar -->
+
+	<!-- main container -->
+    <div class="content">
+
+        
+        <div class="container-fluid">
+            <div id="pad-wrapper">
+                <!-- <div class="row-fluid head">
+                    <div class="span12">
+                        <h4>Form wizard</h4>
+                    </div>
+                </div> -->
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div id="fuelux-wizard" class="wizard row-fluid">
+                            <ul class="wizard-steps">
+                                <li data-target="#step1" class="active">
+                                    <span class="step">1</span>
+                                    <span class="title">PortInfo <br /> 端口信息</span>
+                                </li>
+                                <li data-target="#step2">
+                                    <span class="step">2</span>
+                                    <span class="title">PortSetting <br /> 网络设置</span>
+                                </li>
+                                <li data-target="#step3">
+                                    <span class="step">3</span>
+                                    <span class="title">PortSetting<br /> 端口设置</span>
+                                </li>
+                                <li data-target="#step4">
+                                    <span class="step">4</span>
+                                    <span class="title">Relation User <br /> 关联用户</span>
+                                </li>
+                            </ul>                            
+                        </div>
+                        <div class="step-content">
+                            <div class="step-pane active" id="step1">
+                                <div class="row-fluid form-wrapper">
+                                    <div class="span8">
+                                        <form />
+                                            <div class="field-box">
+                                                <label>本地端口</label>
+                                                <input  id='CurrentPort' class="span8" type="text" value="{{ RuiNetworkPort.CurrentPort }}"/>
+                                                <span class="alert-msg"> 提示：80</span>
+                                            </div>
+                                            <div class="field-box info">
+                                                <label>远程端口</label>
+                                                <input id='RemotePort' class="span8" type="text"  value="{{ RuiNetworkPort.RemotePort }}"/>
+                                                <span class="alert-msg"> 提示：80</span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-pane" id="step2">
+                                <div class="row-fluid form-wrapper">
+                                    <div class="span8">
+                                        <form />
+                                            <div class="field-box">
+                                                <label>远程IP</label>
+                                                <input id="RemoteIP" class="span8" type="text" value="{{ RuiNetworkPort.RemoteIP }}" />
+                                                <span class="alert-msg"> 提示：127.0.0.1或者192.168.1.1</span>
+                                            </div>
+                                            <div class="field-box">
+                                                <label>网络协议</label>
+                                                <select id="NetworkProtocol">
+                                                    <option value="SSH" />SSH
+                                                    <option value="HTTP" />HTTP
+                                                    <option value="TCP" />TCP
+                                                    <option value="TELENT" />TELENT
+                                                </select>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-pane" id="step3">
+                                <div class="row-fluid form-wrapper">
+                                    <div class="span8">
+                                        <form />
+                                            <div class="field-box">
+                                                <label>端口状态</label>
+                                                <select id="ProtStatus">
+                                                    {% if RuiNetworkPort.ProtStatus == '1' %}
+                                                        <option value="1" />启用
+                                                    <option value="0" />禁用
+
+                                                    {% else %}
+                                                    <option value="0" />禁用
+                                                    <option value="1" />启用
+                                                    {% endif %}
+
+                                                </select>
+                                            </div>
+                                            <div class="field-box">
+                                                <label>有效期</label>
+                                                <input id='PortEndTime' class="span8" type="date" value="{{ RuiNetworkPort.PortEndTime|date:'Y-m-d' }}" />
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-pane" id="step4">
+                                <div class="row-fluid form-wrapper payment-info">
+                                    <div class="span8">
+                                        <form />
+                                            <div class="field-box">
+                                                <label>关联用户</label>
+                                                <select id="UserID">
+                                                    {%  for user in RuiNetWorkUserList %}
+                                                    <option value="{{ user.UserID }}" />{{ user.UserID }}
+                                                    {% endfor %}
+
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wizard-actions">
+                            <button type="button" disabled="" class="btn-glow primary btn-prev"> 
+                                <i class="icon-chevron-left"></i> 上一步
+                            </button>
+                            <button type="button" class="btn-glow primary btn-next" data-last="Finish">
+                                下一步 <i class="icon-chevron-right"></i>
+                            </button>
+                            <button type="button" class="btn-glow success btn-finish" onclick="CommintUserDate({{ RuiNetworkPort.id }})">
+                                完 成
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end main container -->
+
+	<!-- scripts for this page -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/theme.js"></script>
+    <script src="/static/js/fuelux.wizard.js"></script>
+
+    <script type="text/javascript">
+        var aaa = JSON.parse('{{ IsMod }}');
+        function CommintUserDate(id){
+            var obj=new Object();
+            obj.CurrentPort=document.getElementById("CurrentPort").value
+            obj.RemotePort=document.getElementById("RemotePort").value
+            obj.RemoteIP=document.getElementById("RemoteIP").value
+            obj.PortEndTime=document.getElementById("PortEndTime").value
+            obj.NetworkProtocol=$("#NetworkProtocol").val();
+            obj.ProtStatus=$("#ProtStatus").val();
+            obj.UserID=$("#UserID").val();
+            obj.IsMod=aaa;
+            obj.id=id;
+            $.ajax({
+                url:"modport",
+                contentType:"application/json",
+                data:JSON.stringify(obj),
+                dataType:"json",
+                async : false,
+                type:"POST",
+                success:function(object){
+                     alert('完成')
+                    window.location.href="tables.html";
+                },
+                error: function (message) {
+                    alert('用户不存在/端口数量达到上限')
+                }
+
+            });
+
+        }
+        $(function () {
+            var $wizard = $('#fuelux-wizard'),
+                $btnPrev = $('.wizard-actions .btn-prev'),
+                $btnNext = $('.wizard-actions .btn-next'),
+                $btnFinish = $(".wizard-actions .btn-finish");
+
+            $wizard.wizard().on('finished', function(e) {
+                // wizard complete code
+            }).on("changed", function(e) {
+                var step = $wizard.wizard("selectedItem");
+                // reset states
+                $btnNext.removeAttr("disabled");
+                $btnPrev.removeAttr("disabled");
+                $btnNext.show();
+                $btnFinish.hide();
+
+                if (step.step === 1) {
+                    $btnPrev.attr("disabled", "disabled");
+                } else if (step.step === 4) {
+                    $btnNext.hide();
+                    $btnFinish.show();
+                }
+            });
+
+            $btnPrev.on('click', function() {
+                $wizard.wizard('previous');
+            });
+            $btnNext.on('click', function() {
+                $wizard.wizard('next');
+            });
+        });
+    </script>
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+</html>

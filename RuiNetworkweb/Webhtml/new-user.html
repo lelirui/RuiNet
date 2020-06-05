@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Detail Admin - New User Form</title>
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- net add-->
+    <link rel="stylesheet" type="text/css" href="/static/css/tishi/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/tishi/demo.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/tishi/ns-default.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/tishi/ns-style-bar.css" />
+		<script src="/static/js/tishi/modernizr.custom.js"></script>
+	
+    <!-- bootstrap -->
+    <link href="/static/css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="/static/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="/static/css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="/static/css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/elements.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/icons.css" />
+
+    <!-- libraries -->
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/font-awesome.css" />
+    
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="/static/css/compiled/new-user.css" type="text/css" media="screen" />
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>
+
+    <!-- navbar -->
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <a class="brand" href="index.html"><img src="/static/img/logo.png" /></a>
+
+            <ul class="nav pull-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle hidden-phone" data-toggle="dropdown">
+                        ADMIN(管理员)
+                        <b class="caret"></b>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end navbar -->
+
+    <!-- sidebar -->
+    <div id="sidebar-nav">
+        <ul id="dashboard-menu">
+            <li class="active">
+                <div class="pointer">
+                    <div class="arrow"></div>
+                    <div class="arrow_border"></div>
+                </div>
+                <a href="index.html">
+                    <i class="icon-home"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="chart-showcase.html">
+                    <i class="icon-signal"></i>
+                    <span>流量图表</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-group"></i>
+                    <span>用户</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="user-list.html">授权用户列表</a></li>
+                    <li><a href="new-user.html">新加用户</a></li>
+                    <!-- <li><a href="user-profile.html">用户信息</a></li> -->
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-th-large"></i>
+                    <span>端口</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="tables.html">端口列表</a></li>
+                    <li><a href="form-wizard.html">添加端口</a></li>
+                </ul>
+            </li>
+           
+        </ul>
+    </div>
+    <!-- end sidebar -->
+
+
+	<!-- main container -->
+    <div class="content">
+        
+
+        
+        <div class="container-fluid">
+            <div id="pad-wrapper" class="new-user">
+                <div class="row-fluid header">
+                    {%  if IsMod == '0' %}
+                    <h3>添加用户</h3>
+                    {% else %}
+                    <h3>修改用户</h3>
+                    {% endif %}
+                </div>
+
+                <div class="row-fluid form-wrapper">
+                    <!-- left column -->
+                    <div class="span9 with-sidebar">
+                        <div class="container">
+                            <form class="new_user_form inline-input" method="post" action="ModUser" />
+                                <div class="span12 field-box">
+                                    <label>用户ID:</label>
+                                    <input  id='UserID' class="span9" type="text" value="{{ RuiNetworkUser.UserID }}" />
+                                </div>
+                                <div class="span12 field-box">
+                                    <label>用户名称:</label>
+                                    <input id='UserName' class="span9" type="text" value="{{ RuiNetworkUser.UserName }}" />
+                                </div>
+                                <div class="span12 field-box">
+                                    <label>是否进行端口限制:</label>
+                                    <div class="ui-select span5">
+                                        <select id="IsLimit">
+                                            {% if RuiNetworkUser.IsLimit == '0' %}
+                                            <option value="0" />是
+                                            <option value="1" />否
+                                            {% else %}
+
+                                            <option value="1" />否
+                                            <option value="0" />是
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="span12 field-box">
+                                    <label>限制端口数量</label>
+                                    <input id="PortLimitNum" class="span9" type="text" value="{{ RuiNetworkUser.PortLimitNum }}"/>
+                                </div>
+                                <div class="span12 field-box">
+                                    <label>Email:</label>
+                                    <input id="Email" class="span9" type="text" value="{{ RuiNetworkUser.Email }}"/>
+                                </div>
+                                <div class="span12 field-box">
+                                    <label>是否进行用户禁用:</label>
+                                    <div class="ui-select span5">
+                                        <select id="UserDisable">
+                                            {% if RuiNetworkUser.UserDisable == '0' %}
+                                            <option value="0" />是
+                                            <option value="1" />否
+                                            {% else %}
+
+                                            <option value="1" />否
+                                            <option value="0" />是
+                                            {% endif %}
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="span11 field-box actions">
+                                    <input type="button" class="btn-glow primary" value="提交" onclick="CommintUserDate({{ RuiNetworkUser.id }})" />
+                                    <span>OR</span>
+                                    <input type="reset" value="重置" class="reset" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- side right column -->
+                   
+                
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end main container -->
+
+
+	<!-- scripts -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/theme.js"></script>
+
+    <script type="text/javascript">
+        var aaa = JSON.parse('{{ IsMod }}');
+        function CommintUserDate(id){
+            var obj=new Object();
+            obj.UserID=document.getElementById("UserID").value
+            obj.UserName=document.getElementById("UserName").value
+            obj.PortLimitNum=document.getElementById("PortLimitNum").value
+            obj.Email=document.getElementById("Email").value
+            obj.IsLimit=$("#IsLimit").val();
+            obj.UserDisable=$("#UserDisable").val();
+            obj.IsMod=aaa;
+            obj.id=id;
+            $.ajax({
+                url:"moduser",
+                contentType:"application/json",
+                data:JSON.stringify(obj),
+                dataType:"json",
+                async : false,
+                type:"POST",
+                success:function(object){
+                    alert('完成')
+                    window.location.href="user-list.html";
+                }
+            });
+
+        }
+        $(function () {
+
+            // toggle form between inline and normal inputs
+            var $buttons = $(".toggle-inputs button");
+            var $form = $("form.new_user_form");
+
+            $buttons.click(function () {
+                var mode = $(this).data("input");
+                $buttons.removeClass("active");
+                $(this).addClass("active");
+
+                if (mode === "inline") {
+                    $form.addClass("inline-input");
+                } else {
+                    $form.removeClass("inline-input");
+                }
+            });
+        });
+    </script>
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+</html>

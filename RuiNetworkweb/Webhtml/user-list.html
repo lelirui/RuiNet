@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Detail Admin - User list</title>
+
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+    <!-- bootstrap -->
+    <link href="/static/css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="/static/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="/static/css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="/static/css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/elements.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/icons.css" />
+
+    <!-- libraries -->
+    <link href="/static/css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
+    
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="/static/css/compiled/user-list.css" type="text/css" media="screen" />
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>
+    <!-- navbar -->
+    <!-- navbar -->
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="brand" href="index.html"><img src="/static/img/logo.png" /></a>
+
+            <ul class="nav pull-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle hidden-phone" data-toggle="dropdown">
+                        ADMIN(管理员)
+                        <b class="caret"></b>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end navbar -->
+
+    <!-- sidebar -->
+    <div id="sidebar-nav">
+        <ul id="dashboard-menu">
+            <li class="active">
+                <div class="pointer">
+                    <div class="arrow"></div>
+                    <div class="arrow_border"></div>
+                </div>
+                <a href="index.html">
+                    <i class="icon-home"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="chart-showcase.html">
+                    <i class="icon-signal"></i>
+                    <span>流量图表</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-group"></i>
+                    <span>用户</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="user-list.html">授权用户列表</a></li>
+                    <li><a href="new-user.html">新加用户</a></li>
+                    <!-- <li><a href="user-profile.html">用户信息</a></li> -->
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-th-large"></i>
+                    <span>端口</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="tables.html">端口列表</a></li>
+                    <li><a href="form-wizard.html">添加端口</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+    <!-- end sidebar -->
+    
+
+	<!-- main container -->
+    <div class="content">
+        
+        
+        
+        <div class="container-fluid">
+            <div id="pad-wrapper" class="users-list">
+                <div class="row-fluid header">
+                    <h3>授权用户列表</h3>
+                    <div class="span10 pull-right">
+
+                        <a href="new-user.html" class="btn-flat success pull-right">
+                            <span>&#43;</span>
+                            添加用户
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Users table -->
+                <div class="row-fluid table">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="span4 sortable">
+                                    用户ID
+                                </th>
+                                <th class="span4 sortable">
+                                    用户名称
+                                </th>
+                                <th class="span3 sortable">
+                                    <span class="line"></span>服务认证key
+                                </th>
+                                <th class="span3 sortable">
+                                    <span class="line"></span>端口映射(公网端口↔内网端口)
+                                </th>
+                                <th class="span3 sortable">
+                                    <span class="line"></span>用户在线状态
+                                </th>
+                                <th class="span3 sortable">
+                                    <span class="line"></span>用户状态
+                                </th>
+                                <th class="span3 sortable">
+                                    <span class="line"></span>是否进行端口限制
+                                </th>
+                                <th class="span3 sortable">
+                                    <span class="line"></span>端口限制数目
+                                </th>
+                                <th class="span3 sortable align-right">
+                                    <span class="line"></span>操作设置
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <!-- row -->
+
+                        <!-- row -->
+                        {% for UserInfo in RuiNetWorkUserList %}
+                        <tr>
+                            <td>
+                                {{ UserInfo.UserID }}
+                            </td>
+                            <td>
+                                {{ UserInfo.UserName }}
+                            </td>
+                            <td>
+                                {{ UserInfo.UserKey }}
+                            </td>
+                            <td>
+                                {{ UserInfo.PortInfo }}
+                            </td>
+                            <td>
+                                        {% if UserInfo.UserOnlineStatus == '1' %}
+                                        <span class="label label-success">在线</span>
+                                        {% else %}
+                                        <span class="label">离线</span>
+                                        {% endif %}
+                            </td>
+                            <td >
+                                {% if UserInfo.UserDisable == '1' %}
+                                        <span class="label label-success">启用</span>
+                                        {% else %}
+                                        <span class="label">禁用</span>
+                                        {% endif %}
+                            </td>
+                            <td >
+                                {% if UserInfo.IsLimit == '1' %}
+                                        <span class="label label-success">不限制</span>
+                                        {% else %}
+                                        <span class="label">限制</span>
+                                        {% endif %}
+                            </td>
+                            <td>
+                                {{ UserInfo.PortLimitNum }}
+                            </td>
+                            <td>
+                                        <ul class="actions">
+                                            <a class="btn-flat success new-product" href="new-user.html?moduser={{ UserInfo.id }}"  >修改</a>
+                                            <a class="btn-flat  new-product" href="javascript:UserListOption({{ UserInfo.id }} ,'2')">删除</a>
+                                        </ul>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end main container -->
+
+
+	<!-- scripts -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/theme.js"></script>
+
+    <script>
+        function UserListOption(userObject,option){
+            if (option == '1'){
+                var obj=new Object();
+                obj.id=userObject
+                $.ajax({
+                        url:"moduser",
+                        contentType:"application/json",
+                        data:JSON.stringify(obj),
+                        dataType:"json",
+                        async : false,
+                        type:"POST",
+                        success:function(object){
+                                window.location.href = 'new-user.html?id=userObject';
+                        }
+                    });
+            }else if (option == '2'){
+                var obj=new Object();
+                obj.id=userObject
+                $.ajax({
+                        url:"deluser",
+                        contentType:"application/json",
+                        data:JSON.stringify(obj),
+                        dataType:"json",
+                        async : false,
+                        type:"POST",
+                        success:function(object){
+                                window.location.href = 'user-list.html';
+                        }
+                    });
+            }else{
+                console.log('未');
+                console.log(userObject);
+            }
+        }
+
+    </script>
+
+
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+</html>
